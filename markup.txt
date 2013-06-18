@@ -1,0 +1,188 @@
+
+
+
+TOPIC MARKUP SPECIFICATION
+
+
+
+TAG: 1, SYNOPSIS
+
+
+       This document  serves as  the canonical reference  describing the
+       TOPIC markup [i] specification and is itself formatted as such.
+
+       TOPIC markup provides a minimal  context for plain text databases
+       that can be read/modified by most text editors, and easily parsed
+       [ii] as well.
+
+       Uses include: knowledge-bases, glossaries, apropos, notes...
+
+
+TAG: 2, KEY CONCEPTS
+
+
+       - Written and read as standard ASCII [iii].
+
+       - Minimal markup grammar.
+
+       - Associations linking blocks of data.
+
+       - Self-indexing.
+
+       - OS neutral.
+
+
+TAG: 3, TAGS
+
+
+       - Tag lines are always prefixed with the case insensitive
+         reserved phrase 'TAG:' [iv].
+
+         TAG: [x54, x41, x47, x3A]
+         TAg: [x54, x41, x67, x3A]
+         TaG: [x54, x61, x47, x3A]
+         Tag: [x54, x61, x67, x3A]
+         tAG: [x74, x41, x47, x3A]
+         tAg: [x74, x41, x67, x3A]
+         taG: [x74, x61, x47, x3A]
+         tag: [x74, x61, x67, x3A]
+
+       - A tag line is always located above the block it describes,
+         alone on a single line.
+
+       - Tags only contain alpha/numeric characters A-Z/a-z/0-9,
+         and optionally spaces.
+
+       - A tag can be either a single word, or a group of words.
+
+       - Multiple tags are comma , [x2C] delimited.
+
+       - A given tag can be used any number of times.
+
+
+TAG: 4, BLOCKS
+
+
+       - A block is always located below its tag line.
+
+       - A block never contains the reserved phrase 'TAG:'
+         (case insensitive) beginning at column 1.
+
+       - Blocks may contain any number of lines.
+
+       - Empty lines within a block are valid.
+
+
+TAG: 5, LINES
+
+
+       - Lines  are typically terminated  with a carriage  return [x0d],
+         or line feed [x0a],  or CR/LF  pair.  Often, implementation  is
+         operating system specific and conversion [v] may be required.
+
+       - No limits are imposed on line length [vi].
+
+
+TAG: 6, ASSOCIATIONS
+
+
+       Using multiple tags can  establish associations between otherwise
+       unrelated blocks. In  the example below, the 1st block  has a tag
+       named 'Apples', the 2nd block has a tag named 'Oranges', and both
+       blocks have a common tag named 'Fruit':
+
+
+TAG: 7, Apples, Fruit
+
+
+       Block line 1
+       Block line 2
+       Block line n...
+
+
+TAG: 8, Oranges, Fruit
+
+
+       Block line 1
+       Block line 2
+       Block line n...
+
+
+       This means  you can stream the  1st block with the  'Apples' tag,
+       stream  the 2nd  block with  the  'Oranges' tag,  or stream  both
+       blocks via  the 'Fruit'  tag. The advantage  gained is  that your
+       data can  be filtered in  an arbitrary manner. For  instance, you
+       could have twelve  blocks, each with differing month  tags, and a
+       common year tag allowing you to  scrutinize your data by month as
+       well as year...
+
+
+TAG: 9, PARSING
+
+
+       - Per  query, a  file  is  read  in its  entirety,  line-by-line
+         sequentially top to bottom, and each tag line left to right.
+
+       - Only tags lines are  tested for equivalence against the current
+         query, and if a match occurs,  then streams the block below up
+         to the next tag line (if any).
+
+       - For the sake of convenience, queries are case insensitive.
+
+
+TAG: 10, GLOSSARY, i, ii, iii, iv, v, vi
+
+
+       i.   Markup: A system for annotating text.
+
+       ii.  Parse: To scan/analyze data looking for a desired pattern.
+
+       iii. ASCII: American Standard Code for Information Interchange.
+
+       iv.  See topic 'HEX TABLE' for ASCII/hexadecimal equivalents.
+
+       v.   Line ending conversion via sed:
+
+            DOS to Unix: sed 's/^M$//' input.txt > output.txt
+            Unix to DOS: sed 's/$/^M/' input.txt > output.txt
+
+            Where '^M' [x0D] is an embedded control-M character.
+
+       vi.  Caveat: The user should recognize the constraints governing
+            the software rendering the data.
+
+
+TAG: 11, HEX TABLE
+
+
+       ASCII/hexadecimal equivalents used in this document:
+
+
+           0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
+
+       0  ^@ ^A ^B ^C ^D ^E ^F ^G ^H ^I ^J ^K ^L ^M ^N ^O
+       1  ^P ^Q ^R ^S ^T ^U ^V ^W ^X ^Y ^Z ^[ ^\ ^] ^^ ^_
+       2  SPC !  "  #  $  %  &  '  (  )  *  +  ,  -  .  /
+       3   0  1  2  3  4  5  6  7  8  9  :  ;  <  =  >  ?
+       4   @  A  B  C  D  E  F  G  H  I  J  K  L  M  N  O
+       5   P  Q  R  S  T  U  V  W  X  Y  Z  [  \  ]  ^  _
+       6   `  a  b  c  d  e  f  g  h  i  j  k  l  m  n  o
+       7   p  q  r  s  t  u  v  w  x  y  z  {  |  }  ~ DEL
+
+
+TAG: 12, LEGALESE
+
+
+       The TOPIC markup specification  is copyright Topcat Software LLC.
+       and absolutely  free for  anyone to use  in perpetuity.  A single
+       line citation is requested in the form of:
+
+       TOPIC markup specification by Topcat Software LLC.
+
+
+TAG: 13, COLOPHON
+
+
+       Here come ol' flat-top, he come groovin' up slowly...
+
+eof

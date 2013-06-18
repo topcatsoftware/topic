@@ -1,0 +1,43 @@
+.TH TOPIC "1" "2013/01/01" "Topcat Software LLC."
+.SH NAME
+topic \- markup parser
+.SH SYNTAX
+Use only a single option per invocation:
+.TP
+topic [[\fItag\fR | \fB-i\fR] < \fBFILE\fR] [\fB\-m\fR | \fB\-l\fR]
+.SH DESCRIPTION
+TOPIC markup provides a minimal context for plain text databases that can be read/modified by most text editors, and easily parsed as well.
+.TP
+Uses include: knowledge-bases, glossaries, apropos, notes...
+.SH OPTIONS
+.TP
+\fItag\fR
+stream blocks with tags matching '\fItag\fR' to stdout
+.TP
+\fB\-i\fR
+stream file index to stdout
+.TP
+\fB\-m\fR
+stream markup specification to stdout
+.TP
+\fB\-l\fR
+stream license to stdout
+.SH EXAMPLES
+topic '\fIsection 4\fR' < file
+.TP
+cat file | topic -i > index
+.TP
+topic -m | $PAGER
+.SH MARKUP
+Invoke topic -m for complete markup specifications.
+.SH DIAGNOSTICS
+topic returns 0 on success, 1 upon error.
+.SH BUGS
+None known...
+.SH LEGALESE
+The TOPIC markup specification is copyright Topcat Software LLC. and absolutely free for anyone to use in perpetuity.
+Invoke 'topic \fB\-l\fR' for license details.
+.SH AUTHOR
+Michael S. Sanders/Topcat Software LLC.
+.SH COLOPHON
+Here come ol' flat-top, he come groovin' up slowly...

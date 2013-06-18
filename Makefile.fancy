@@ -1,0 +1,45 @@
+# fancy makefile for topic parser
+# Topcat Sftware LLC.
+
+CC      = cc
+CFLAGS += -Wall -Werror
+PREFIX  = /usr/local
+BINDIR  = $(PREFIX)/bin
+MANDIR  = $(PREFIX)/man/man1
+BUILD   = v1.02
+
+info:
+	@clear
+	@echo
+	@echo 'syntax: make [option]'
+	@echo
+	@echo 'build   - compiles sources to object code'
+	@echo 'install - installs binary and man page into system'
+	@echo 'remove  - deletes installed components from system'
+	@echo 'clean   - deletes object code in the source directory'
+	@echo
+
+build: prep compile
+
+prep: ./bin2c.c ./syntax.txt ./markup.txt ./license.txt
+	$(CC) $(CFLAGS) ./bin2c.c -o ./bin2c
+	./bin2c -z ./syntax.txt ./syntax.c
+	./bin2c -z ./markup.txt ./markup.c
+	./bin2c -z ./license.txt ./license.c
+
+compile: ./topic.c ./syntax.c ./markup.c ./license.c ./topic.1
+	$(CC) $(CFLAGS) -DBUILD="\"$(BUILD)\"" ./topic.c -o ./topic
+	cat ./topic.1 | gzip -9 > ./topic.1.gz
+
+install: ./topic ./topic.1
+	install -s -m 755 ./topic $(BINDIR)/topic
+	install -m 444 ./topic.1.gz $(MANDIR)/topic.1.gz
+
+remove: $(BINDIR)/topic $(MANDIR)/topic.1.gz
+	rm -f $(BINDIR)/topic $(MANDIR)/topic.1.gz
+
+clean:
+	rm -f ./topic ./topic.1.gz ./bin2c ./syntax.c ./markup.c ./license.c
+
+# eof
+

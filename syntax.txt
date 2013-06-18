@@ -1,0 +1,18 @@
+
+ TOPIC markup parser v1.02 [c]2013 Topcat Software LLC.
+
+ syntax: topic [[tag | -i] < FILE] [-m | -l]
+
+ use only a single option per invocation:
+
+ tag   stream blocks with matching tags to stdout
+ -i    stream file index to stdout
+ -m    stream markup specification to stdout
+ -l    stream license to stdout
+
+ examples:
+
+ topic 'section 4' < file
+ cat file | topic -i > index
+ topic -m | $PAGER
+
